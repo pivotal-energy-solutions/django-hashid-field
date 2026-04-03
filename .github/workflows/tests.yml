@@ -20,27 +20,16 @@ jobs:
           - "3.2.23"
           - "4.2.9"
           - "5.0.1"
-          - "6.0"
         drf:
           - "no"
           - "3.14.0"
         exclude:
           - python: "3.8"
             django: "5.0.1"
-          - python: "3.8"
-            django: "6.0"
           - python: "3.9"
             django: "5.0.1"
-          - python: "3.9"
-            django: "6.0"
-          - python: "3.10"
-            django: "6.0"
-          - python: "3.11"
-            django: "6.0"
           - python: "3.12"
             django: "3.2.23"
-          - python: "3.12"
-            django: "6.0"
           - python: "3.13"
             django: "3.2.23"
 
@@ -55,14 +44,9 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r ci/requirements.txt
-          if [[ "$DJANGO_VERSION" == "6.0" ]]; then
-            pip install --upgrade --pre "Django>=$DJANGO_VERSION,<7.0"
-          else
-            pip install --upgrade "Django==$DJANGO_VERSION"
-          fi
+          pip install --upgrade "Django==${{ matrix.django }}"
           if [[ "$DRF_VERSION" != "no" ]]; then pip install --upgrade djangorestframework==${DRF_VERSION}; fi
         env:
-          DJANGO_VERSION: ${{ matrix.django }}
           DRF_VERSION: ${{ matrix.drf }}
       - name: Run Tests
         run: python runtests.py
