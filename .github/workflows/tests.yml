@@ -15,6 +15,7 @@ jobs:
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
         django:
           - "3.2.23"
           - "4.2.9"
@@ -28,6 +29,8 @@ jobs:
           - python: "3.9"
             django: "5.0.1"
           - python: "3.12"
+            django: "3.2.23"
+          - python: "3.13"
             django: "3.2.23"
 
     name: "Python ${{ matrix.python }} - Django ${{ matrix.django }} - DRF ${{ matrix.drf }}"
